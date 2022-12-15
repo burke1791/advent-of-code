@@ -1,0 +1,26 @@
+version: "3.9"
+
+volumes:
+  db:
+    driver: local
+
+services:
+  db:
+    image: postgres:14.1-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+    volumes:
+      - type: volume
+        source: db
+        target: /var/lib/postgrsql/data
+      - type: bind
+        source: ./aoc2022_data
+        target: /aoc2022_data
+      - type: bind
+        source: ./src
+        target: /src
